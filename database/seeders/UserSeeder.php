@@ -28,5 +28,9 @@ class UserSeeder extends Seeder
             'role' => 'user',
             'email_verified_at' => now()
         ]);
+
+        User::factory()
+        ->count(10)
+        ->create();
     }
 }

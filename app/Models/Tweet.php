@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Database\Eloquent\Model;
 
-class tweet extends Model
+class Tweet extends Model
 {
+    use HasFactory; 
     protected $fillable = [
         'user_id',
         'tweet_id',
-        'contain',
+        'content',
         'time_stamp'
     ];
     public function user()

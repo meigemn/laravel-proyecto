@@ -24,5 +24,13 @@ class TweetSeeder extends Seeder
             'user_id' => 2,
             
         ]);
+        Tweet::factory()
+        ->count(100)
+        ->create();
+
+        Tweet::factory()
+        ->count(50)
+        ->reply()
+        ->create();
     }
 }
