@@ -30,6 +30,15 @@ class UserSeeder extends Seeder
             'role' => 'user',
             'email_verified_at' => now()
         ]);
+        User::create([
+            'name' => 'baned',
+            'email' => 'baned@gmail.com',
+            'user_photo' => 'https://res.cloudinary.com/meigemn/image/upload/v1739475926/2288-C_Jackson_Custom_Shop_Randy_Rhoads_Pinstripe_with_Concorde_Features_U20926_2_grande_iikn2i.jpg',
+            'password' => Hash::make('1234'), // Contraseña: "password"
+            'role' => 'user',
+            'is_baned' => true,
+            'email_verified_at' => now()
+        ]);
 
         User::factory()
         ->count(10)
