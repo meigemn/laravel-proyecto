@@ -1,6 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
+Auth::routes(); // Esto crea automáticamente la ruta 'logout'
+
 /* Ruta del kernel para el middleware: vendor/laravel/framework/src/foundation/Http */
 // Página de bienvenida (para usuarios NO autenticados)
 Route::get('/', function () {
