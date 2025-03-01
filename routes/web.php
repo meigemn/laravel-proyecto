@@ -1,9 +1,13 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+Auth::routes(['register' => true]); // Habilitar rutas de registro
 Auth::routes(); // Esto crea automáticamente la ruta 'logout'
 
+// routes/web.php
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);/* registro */
 /* Ruta del kernel para el middleware: vendor/laravel/framework/src/foundation/Http */
 // Página de bienvenida (para usuarios NO autenticados)
 Route::get('/', function () {

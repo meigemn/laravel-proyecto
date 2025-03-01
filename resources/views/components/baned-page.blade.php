@@ -49,6 +49,19 @@
 <h1 class="text-6xl font-medium py-8">oops! Parece que te has sido baneado</h1>
 <p class="text-2xl pb-8 px-12 font-medium">El admin ominpotente ha decidido que no pasas los minimos deseables</p>
 <p class="text-2xl pb-8 px-12 font-medium">:(</p>
+<div class="group relative px-4 cursor-pointer transition-all duration-200 hover:text-red-500">
+    {{-- formulario para logout --}}
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    <!-- Contenedor del ícono con confirmación -->
+    <div onclick="if(confirm('¿Seguro que quieres cerrar sesión?')) { document.getElementById('logout-form').submit() }"
+        class="flex h-10 w-10 items-center justify-center rounded-full hover:bg-red-50 transition-colors"
+        role="button" tabindex="0"    
+    >
+       <p>Salir </p>
+    </div>
+</div>
 
 </div>
 </div>
