@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('follows', function (Blueprint $table) {
             
-            // Definir clave primaria compuesta
+            // Clave primaria compuesta
             $table->primary(['user_following', 'user_followed']);
-            
-            
             $table->unsignedBigInteger('user_following');
             // Clave foránea
             $table->foreign('user_following')

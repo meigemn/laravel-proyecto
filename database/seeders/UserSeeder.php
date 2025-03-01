@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
+            'user_photo' => 'https://res.cloudinary.com/meigemn/image/upload/v1739475926/2288-C_Jackson_Custom_Shop_Randy_Rhoads_Pinstripe_with_Concorde_Features_U20926_2_grande_iikn2i.jpg',
             'password' => Hash::make('admin'), // Contraseña: "password"
             'role' => 'admin',
             'email_verified_at' => now()
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'carlos',
             'email' => 'carlos@gmail.com',
+            'user_photo' => 'https://res.cloudinary.com/meigemn/image/upload/v1739475926/2288-C_Jackson_Custom_Shop_Randy_Rhoads_Pinstripe_with_Concorde_Features_U20926_2_grande_iikn2i.jpg',
             'password' => Hash::make('1234'), // Contraseña: "password"
             'role' => 'user',
             'email_verified_at' => now()

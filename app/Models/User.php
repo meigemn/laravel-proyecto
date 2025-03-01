@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-    public function posts()
+    public function tweets()
 {
     return $this->hasMany(Tweet::class, 'author_id');
 }

@@ -7,11 +7,11 @@
 
     <!-- Sección de usuario con nombre e imagen -->
     <div class="flex items-center space-x-4 mb-4">
-        <div>
-            Nombre del usuario
+        <div >
+            {{Auth::user()->name}}
         </div>
         <div class="w-8 h-8">
-            <img class="w-full h-full rounded-full" src="ruta-de-la-imagen.jpg" alt="Imagen del usuario">
+            <img class="w-full h-full rounded-full" src="{{Auth::user()->user_photo}}" alt="Imagen del usuario">
         </div>
     </div>
 

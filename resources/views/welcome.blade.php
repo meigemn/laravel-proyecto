@@ -12,7 +12,7 @@
 
         <div class="bg-black rounded-xl shadow-lg p-8 border border-gray-800">
             <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
-                Sign in to X
+                Sign in to Jajanken
             </h2>
 
             <form class="mt-8 space-y-6" method="POST" action="{{ route('login') }}">
