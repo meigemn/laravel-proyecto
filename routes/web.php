@@ -17,7 +17,7 @@ Route::get('/', function () {
 // Página principal (solo para usuarios autenticados y no baneados)
 Route::get('/home', function () {
     return view('home');
-})->name('home')->middleware(['auth', 'baned']); // Orden correcto
+})->name('home')->middleware(['auth', 'baned']); 
 
 // Página de baneo (solo para usuarios autenticados y baneados)
 Route::get('/baned', function () {
