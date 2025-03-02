@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 Auth::routes(['register' => true]); // Habilitar rutas de registro
@@ -27,5 +29,7 @@ Route::get('/baned', function () {
     return view('components.baned-page');
 })->name('baned-page')->middleware('auth'); // Middleware 'auth' aplicado
 
+//Rutas de perfil
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 // Rutas de autenticación
 Auth::routes();
