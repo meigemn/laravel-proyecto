@@ -12,24 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('follows', function (Blueprint $table) {
-            
-            // Clave primaria compuesta
-            $table->primary(['user_following', 'user_followed']);
             $table->unsignedBigInteger('user_following');
-            // Clave foránea
-            $table->foreign('user_following')
-            ->references('id')
-            ->on('users')
-            ->onDelete('cascade');
-            // Clave foránea
             $table->unsignedBigInteger('user_followed');
-            
-            $table->foreign('user_followed')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-
-            $table->timestamps(); // Opcional (puedes dejar solo created_at si prefieres)
+            $table->foreign('user_following')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_followed')->references('id')->on('users')->onDelete('cascade');
+            $table->primary(['user_following', 'user_followed']);
+            $table->timestamps();
         });
     }
 

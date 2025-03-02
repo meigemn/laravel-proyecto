@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -23,9 +24,9 @@ class User extends Authenticatable
         'password',
     ];
     public function tweets()
-{
-    return $this->hasMany(Tweet::class, 'author_id');
-}
+    {
+        return $this->hasMany(Tweet::class, 'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,5 +49,24 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function following(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            User::class,
+            'follows',
+            'user_following', // ID del usuario que sigue (el autenticado)
+            'user_followed'   // ID del usuario seguido
+        )->withTimestamps();
+    }
+
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            User::class,
+            'follows',
+            'user_followed',  // ID del usuario seguido
+            'user_following'  // ID del seguidor
+        )->withTimestamps();
     }
 }

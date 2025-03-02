@@ -1,0 +1,14 @@
+[90m= [39m[34;4mApp\Models\User[39;24m {#6445
+    [34mid[39m: [35m1[39m,
+    [34mname[39m: "[32madmin[39m",
+    [34muser_photo[39m: "[32mhttps://res.cloudinary.com/meigemn/image/upload/v1739475926/2288-C_Jackson_Custom_Shop_Randy_Rhoads_Pinstripe_with_Concorde_Features_U20926_2_grande_iikn2i.jpg[39m",
+    [34memail[39m: "[32madmin@gmail.com[39m",
+    [34memail_verified_at[39m: "[32m2025-03-02 17:02:05[39m",
+    #[33mpassword[39m: "[32m$2y$12$8URwgphl0DktrHUOa7RnMuXy/qsIltFMMtP1/eVTSIDW3jCNPoRdO[39m",
+    [34mis_baned[39m: [35m0[39m,
+    [34mrole[39m: "[32madmin[39m",
+    #[33mremember_token[39m: [36mnull[39m,
+    [34mcreated_at[39m: "[32m2025-03-02 17:02:05[39m",
+    [34mupdated_at[39m: "[32m2025-03-02 17:02:05[39m",
+  }
+

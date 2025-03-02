@@ -16,6 +16,15 @@ class Tweet extends Model
     ];
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
+    public function likes()
+{
+    return $this->hasMany(\App\Models\Like::class);
+}
+
+public function isLikedBy(?User $user): bool
+{
+    return $user ? $this->likes->contains('user_id', $user->id) : false;
+}
 }

@@ -33,3 +33,9 @@ Route::get('/baned', function () {
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 // Rutas de autenticación
 Auth::routes();
+
+use App\Http\Controllers\LikeController;
+
+// Likes
+Route::post('/tweets/{tweet}/like', [LikeController::class, 'store'])->name('tweets.like');
+Route::delete('/tweets/{tweet}/like', [LikeController::class, 'destroy'])->name('tweets.unlike');
