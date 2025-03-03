@@ -6,16 +6,22 @@
     </div>
 
     <!-- Sección de usuario con nombre e imagen -->
-    <div 
+    @auth
         
-        class="flex items-center space-x-4 mb-4 group hover:bg-gray-100 rounded-lg p-2 transition-colors">
-        <div >
-            <a href="{{ route('profile') }}">{{ Auth::user()->name }}</a>
-        </div>
-        <div class="w-8 h-8">
-            <img class="w-full h-full rounded-full" src="{{ Auth::user()->user_photo }}" alt="Imagen del usuario">
-        </div>
+    <div 
+    
+    class="flex items-center space-x-4 mb-4 group hover:bg-gray-100 rounded-lg p-2 transition-colors">
+    <div >
+        <a href="{{ route('profile') }}">{{ Auth::user()->name }}</a>
     </div>
+    <div class="w-8 h-8">
+        <img class="w-full h-full rounded-full" 
+        src="{{ Auth::user()->user_photo ? asset('storage/' . Auth::user()->user_photo) : asset('images/default-profile.png') }}" 
+        
+        alt="Imagen del usuario">
+    </div>
+</div>
+@endauth
 
     <!-- Barra de navegación con íconos y etiquetas emergentes -->
     <div class="border border-gray-300 py-3 flex gap-1 shadow-xl rounded-md">

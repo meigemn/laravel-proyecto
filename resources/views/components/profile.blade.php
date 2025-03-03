@@ -20,7 +20,8 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <!-- Avatar del usuario -->
-                        <img src="{{ $user->user_photo}}"  
+                        <img         src="{{ Auth::user()->user_photo ? asset('storage/' . Auth::user()->user_photo) : asset('images/default-profile.png') }}" 
+  
                              class="h-24 w-24 rounded-full border-4 border-[#15202b] object-cover"
                              alt="Foto de perfil de {{ Auth::user()->name }}"> 
 

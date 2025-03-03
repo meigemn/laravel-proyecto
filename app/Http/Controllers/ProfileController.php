@@ -27,38 +27,38 @@ public function edit()
         return view('components.edit-profile', compact('user'));
     }
     public function update(Request $request)
-    {
-        $user = Auth::user();
-        
-        $request->validate([
-            'name' => 'required|string|max:50',
-            'password' => 'nullable|min:3|confirmed',
-            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:max_width=2000,max_height=2000',
-        ]);
+{
+    $user = Auth::user();
 
-        // Actualizar datos básicos
-        $user->name = $request->name;
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'password' => 'nullable|min:8|confirmed',
+        'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        
-        
-        // Actualizar contraseña si se proporciona
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
+    // Actualizar nombre
+    $user->name = $validatedData['name'];
 
-        // Manejar la foto de perfil
-        if ($request->hasFile('profile_photo')) {
-            // Eliminar foto anterior si existe
-            if ($user->user_photo) {
-                Storage::delete('public/'.$user->user_photo);
-            }
-            
-            $path = $request->file('profile_photo')->store('profile-photos', 'public');
-            $user->user_photo = $path;
-        }
-        /* Aunque da error el save, guarda correctamente */
-        $user->save();
-
-        return redirect()->route('profile')->with('success', 'Perfil actualizado correctamente');
+    // Actualizar contraseña si se proporciona
+    if ($request->filled('password')) {
+        $user->password = Hash::make($validatedData['password']);
     }
+
+    // Manejar la foto de perfil
+    if ($request->hasFile('profile_photo')) {
+        // Eliminar foto anterior si existe
+        if ($user->user_photo) {
+            Storage::disk('public')->delete($user->user_photo); // Usa el disco correcto
+        }
+        
+        // Guardar nueva foto
+        $path = $request->file('profile_photo')->store('profile-photos', 'public');
+        $user->user_photo = $path; // Guarda la ruta relativa
+    }
+
+    // Guardar cambios
+    $user->save();
+
+    return redirect()->route('profile')->with('success', 'Perfil actualizado');
+}
 }

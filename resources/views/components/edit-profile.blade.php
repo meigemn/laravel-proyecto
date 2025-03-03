@@ -18,14 +18,16 @@
                 <div class="mb-6">
                     <label class="block text-sm font-medium mb-2">Foto de perfil</label>
                     <div class="flex items-center space-x-4">
-                        <img id="preview" src="{{ $user->user_photo ? asset('storage/'.$user->user_photo) : 'https://via.placeholder.com/150' }}" 
-                             class="h-24 w-24 rounded-full object-cover border-2 border-[#15202b]">
+                        <img id="preview" 
+                        src="{{ Auth::user()->user_photo ? asset('storage/' . Auth::user()->user_photo) : asset('images/default-profile.png') }}" 
+                            class="h-24 w-24 rounded-full object-cover border-2 border-[#15202b]">
                         <input type="file" name="profile_photo" id="profile_photo" 
                                class="hidden" accept="image/*">
                         <button type="button" onclick="document.getElementById('profile_photo').click()" 
                                 class="px-4 py-2 bg-blue-500/10 border border-blue-500 rounded-full text-blue-500 hover:bg-blue-500/20 transition">
                             Cambiar foto
                         </button>
+                        <p>jpeg,png,jpg,gif</p>
                     </div>
                 </div>
 
