@@ -23,7 +23,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_photo'
     ];
+    protected $appends = ['followers_count', 'following_count'];
     public function tweets()
     {
         return $this->hasMany(Tweet::class, 'user_id');
@@ -71,6 +73,16 @@ public function following(): BelongsToMany
         'user_following', // Tu ID (quien sigue)
         'user_followed' // ID del seguido
     )->withTimestamps();
+}
+// Asegúrate de que los contadores se carguen
+public function getFollowersCountAttribute()
+{
+    return $this->followers()->count();
+}
+
+public function getFollowingCountAttribute()
+{
+    return $this->following()->count();
 }
 
 

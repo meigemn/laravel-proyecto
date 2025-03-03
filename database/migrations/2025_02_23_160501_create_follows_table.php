@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('follows', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_following');
-            $table->unsignedBigInteger('user_followed');
-            $table->foreign('user_following')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('user_followed')->references('id')->on('users')->onDelete('cascade');
-            $table->primary(['user_following', 'user_followed']);
+            $table->id();
+            $table->foreignId('user_followed')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_following')->constrained('users')->onDelete('cascade');
+            
             $table->timestamps();
+            // Índice único para evitar duplicados
+            $table->unique(['user_following', 'user_followed']);
         });
     }
 

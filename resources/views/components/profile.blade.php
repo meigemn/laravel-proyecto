@@ -42,7 +42,7 @@
                     </div>
 
                     <!-- Botón de modificar perfil -->
-                    <a href="{{ route('profile') }}" 
+                    <a href="{{ route('profile.edit') }}"
                         class="inline-flex items-center px-4 py-2 bg-transparent border border-blue-500 rounded-full font-semibold text-blue-500 hover:bg-blue-500/10 transition-colors duration-200">
                         Modificar perfil
                     </a>

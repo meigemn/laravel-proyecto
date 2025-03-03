@@ -40,3 +40,6 @@ use App\Http\Controllers\LikeController;
 Route::post('/tweets/{tweet}/like', [LikeController::class, 'store'])->name('tweets.like');
 Route::delete('/tweets/{tweet}/like', [LikeController::class, 'destroy'])->name('tweets.unlike');
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
