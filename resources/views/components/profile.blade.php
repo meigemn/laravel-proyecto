@@ -20,21 +20,21 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <!-- Avatar del usuario -->
-                        <img src="{{ Auth::user()->user_photo}}"  
+                        <img src="{{ $user->user_photo}}"  
                              class="h-24 w-24 rounded-full border-4 border-[#15202b] object-cover"
                              alt="Foto de perfil de {{ Auth::user()->name }}"> 
 
                         <!-- Información del usuario -->
                         <div>
-                            <h2 class="text-2xl font-bold">{{ Auth::user()->name }}</h2>
+                            <h2 class="text-2xl font-bold">{{ $user->name }}</h2>
    
                             <div class="mt-2 flex space-x-4">
                                 <div class="flex items-center">
-                                    <span class="font-semibold">{{ Auth::user()->tweets_count }}</span>
+                                    <span class="font-semibold">{{ $user->tweets_count }}</span>
                                     <span class="ml-1 text-gray-400">Tweets</span>
                                 </div>
                                 <div class="flex items-center">
-                                    <span class="font-semibold">{{ Auth::user()->followers_count }}</span>
+                                    <span class="font-semibold">{{ $user->followers_count }}</span>
                                     <span class="ml-1 text-gray-400">Seguidores</span>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@
 
                     <!-- Botón de modificar perfil -->
                     <a href="{{ route('profile') }}" 
-                       class="inline-flex items-center px-4 py-2 bg-transparent border border-blue-500 rounded-full font-semibold text-blue-500 hover:bg-blue-500/10 transition-colors duration-200">
+                        class="inline-flex items-center px-4 py-2 bg-transparent border border-blue-500 rounded-full font-semibold text-blue-500 hover:bg-blue-500/10 transition-colors duration-200">
                         Modificar perfil
                     </a>
                 </div>

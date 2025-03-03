@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -50,23 +51,27 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function following(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            User::class,
-            'follows',
-            'user_following', // ID del usuario que sigue (el autenticado)
-            'user_followed'   // ID del usuario seguido
-        )->withTimestamps();
-    }
+   // Relación de SEGUIDORES (quienes siguen al usuario)
+public function followers(): BelongsToMany
+{
+    return $this->belongsToMany(
+        User::class,
+        'follows',
+        'user_followed', // ID del usuario seguido (tú)
+        'user_following' // ID del seguidor
+    )->withTimestamps();
+}
 
-    public function followers(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            User::class,
-            'follows',
-            'user_followed',  // ID del usuario seguido
-            'user_following'  // ID del seguidor
-        )->withTimestamps();
-    }
+// Relación de SEGUIDOS (a quién sigues tú)
+public function following(): BelongsToMany
+{
+    return $this->belongsToMany(
+        User::class,
+        'follows',
+        'user_following', // Tu ID (quien sigue)
+        'user_followed' // ID del seguido
+    )->withTimestamps();
+}
+
+
 }
