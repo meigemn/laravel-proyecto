@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,7 @@ Auth::routes(); // Esto crea automáticamente la ruta 'logout'
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);/* registro */
+
 /* Ruta del kernel para el middleware: vendor/laravel/framework/src/foundation/Http */
 // Página de bienvenida (para usuarios NO autenticados)
 Route::get('/', function () {
@@ -35,7 +37,6 @@ Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 // Rutas de autenticación
 Auth::routes();
 
-use App\Http\Controllers\LikeController;
 
 // Likes
 Route::post('/tweets/{tweet}/like', [LikeController::class, 'store'])->name('tweets.like');
@@ -48,3 +49,6 @@ Route::post('/profile/update', [ProfileController::class, 'update'])->name('prof
 
 // Ruta para guardar tweets
 Route::post('/tweets', [TweetController::class, 'store'])->name('tweets.store');
+
+//Modificar y borrar tweet
+Route::resource('tweets', TweetController::class)->only(['update', 'destroy']);

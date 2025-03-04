@@ -93,8 +93,12 @@
             <!-- Sección de Tweets del Usuario -->
             <div class="mt-8 space-y-4">
                 @forelse ($tweets as $tweet)
-                    <x-tweet :tweet="$tweet" /> <!-- Usa tu componente Tweet -->
+                    <x-tweet 
+                    :tweet="$tweet"{{-- componente tweet --}}
+                    :is-owner-profile="$user->id===auth()->id()"
+                    /> 
                 @empty
+                {{-- Si no se ha escrito ningún tweet --}}
                     <div class="text-center text-gray-500 py-8">
                         🐦 ¡Aún no tienes tweets! Publica tu primer tweet.
                     </div>

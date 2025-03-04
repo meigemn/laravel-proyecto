@@ -74,7 +74,7 @@
                 </div>
             </div>
 
-            <!-- Icono de User con etiqueta emergente -->
+            <!-- Icono de siguiendo con etiqueta emergente -->
             <div class="group relative px-4 cursor-pointer">
                 <div class="flex h-10 w-10 items-center justify-center rounded-full hover:text-blue-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
