@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="flex items-center">
                                     <span class="font-semibold">{{ $user->following_count }}</span>
-                                    <span class="ml-1 text-gray-400">Seguiendo</span>
+                                    <span class="ml-1 text-gray-400">Siguiendo</span>
                                 </div>
                             </div>
                         </div>

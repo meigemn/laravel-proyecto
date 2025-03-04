@@ -1,16 +1,12 @@
-@props([
-    'tweet',          // El objeto Tweet que ya tenías
-    'isOwnerProfile' => false  // Nueva prop para controlar los botones
-])
-<div 
-    class="max-w-xl my-4 mx-auto p-4 border-2 border-transparent rounded-lg 
+@props(['tweet', 'isOwnerProfile' => false])
+
+<div class="max-w-xl my-4 mx-auto p-4 border-2 border-transparent rounded-lg 
     transform-gpu transition-transform duration-300 relative group
-    hover:border-gray-800 hover:translate-x-3 hover:-translate-y-3 hover:rotate-1"
-    x-data="{ editing: false, showOptions: false, content: '{{ $tweet->content }}' }"
->
+    hover:border-gray-800 hover:translate-x-3 hover:-translate-y-3 hover:rotate-1">
+    
     @if($isOwnerProfile)
     <!-- Menú de opciones -->
-    <div class="absolute top-3 right-3 z-10">
+    <div class="absolute top-3 right-3 z-10" x-data="{ showOptions: false }">
         <button 
             @click="showOptions = !showOptions" 
             class="text-gray-500 hover:text-white transition-colors"
@@ -27,25 +23,85 @@
             class="absolute right-0 mt-2 w-48 bg-[#192734] rounded-lg shadow-xl border border-gray-700"
         >
             <div class="p-2 space-y-2">
+                <div x-data="{ editing: false, content: '{{ $tweet->content }}' }">
+                    <button 
+                        @click="editing = true; showOptions = false"
+                        class="w-full px-4 py-2 text-left text-blue-500 hover:bg-[#22303c] rounded-lg transition-colors"
+                    >
+                        Editar
+                    </button>
+                    
+                    <!-- Contenido editable -->
+                    <template x-if="editing">
+                        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                            <div class="bg-[#192734] rounded-xl p-6 w-full max-w-xl">
+                                <textarea 
+                                    x-model="content" 
+                                    class="w-full bg-transparent text-white border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    rows="4"
+                                    autofocus
+                                ></textarea>
+                                <div class="flex justify-end space-x-2 mt-4">
+                                    <button 
+                                        @click="editing = false" 
+                                        class="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        Cancelar
+                                    </button>
+                                    <button 
+                                        @click="fetch('{{ route('tweets.update', $tweet) }}', {
+                                            method: 'PUT',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                            },
+                                            body: JSON.stringify({ content: content })
+                                        }).then(() => {
+                                            editing = false;
+                                            window.location.reload();
+                                        })"
+                                        class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+                                    >
+                                        Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
                 <button 
-                    @click="editing = true; showOptions = false"
-                    class="w-full px-4 py-2 text-left text-blue-500 hover:bg-[#22303c] rounded-lg transition-colors"
-                >
-                    Editar
-                </button>
-                <button 
-                    @click="if(confirm('¿Eliminar tweet permanentemente?')) {
-                        fetch('{{ route('tweets.destroy', $tweet) }}', {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            }
-                        }).then(() => window.location.reload())
-                    }"
-                    class="w-full px-4 py-2 text-left text-red-500 hover:bg-[#22303c] rounded-lg transition-colors"
-                >
-                    Eliminar
-                </button>
+    @click="if(confirm('¿Eliminar tweet permanentemente?')) {
+        fetch('{{ route('tweets.destroy', $tweet) }}', {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error de red');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                $el.closest('.group').remove();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al eliminar el tweet: ' + error.message);
+        });
+    }"
+    class="w-full px-4 py-2 text-left text-red-500 hover:bg-[#22303c] rounded-lg transition-colors"
+>
+    Eliminar
+</button>
             </div>
         </div>
     </div>
@@ -66,7 +122,7 @@
         @endif
 
         <!-- Contenido principal -->
-        <div class="flex-1">
+        <div class="flex-1 text-white">
             <!-- Información del usuario -->
             <div class="flex items-center space-x-2">
                 @if ($tweet->user)
@@ -78,44 +134,8 @@
                 <span class="text-gray-500">{{ $tweet->created_at->diffForHumans() }}</span>
             </div>
 
-            <!-- Contenido editable -->
-            <template x-if="!editing">
-                <p class="text-white mt-2">{{ $tweet->content }}</p>
-            </template>
-            
-            <template x-if="editing">
-                <div class="mt-2 space-y-2">
-                    <textarea 
-                        x-model="content" 
-                        class="w-full bg-transparent text-white border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        rows="3"
-                    ></textarea>
-                    <div class="flex justify-end space-x-2">
-                        <button 
-                            @click="editing = false" 
-                            class="px-4 py-2 text-gray-400 hover:text-white transition-colors"
-                        >
-                            Cancelar
-                        </button>
-                        <button 
-                            @click="fetch('{{ route('tweets.update', $tweet) }}', {
-                                method: 'PUT',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                },
-                                body: JSON.stringify({ content: content })
-                            }).then(() => {
-                                editing = false;
-                                window.location.reload();
-                            })"
-                            class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
-                        >
-                            Guardar
-                        </button>
-                    </div>
-                </div>
-            </template>
+            <!-- Contenido del tweet -->
+            <p class="text-white mt-2">{{ $tweet->content }}</p>
 
             <!-- Botón de Me Gusta -->
             <div class="flex items-center space-x-2 mt-2">

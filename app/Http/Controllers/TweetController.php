@@ -38,10 +38,21 @@ class TweetController extends Controller
     //borrar tweet
     public function destroy(Tweet $tweet)
     {
-        $this->authorize('delete', $tweet);
-        
-        $tweet->delete();
-        
-        return redirect()->back()->with('success', 'Tweet eliminado');
+        try {
+            $this->authorize('delete', $tweet);
+            
+            $tweet->delete();
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Tweet eliminado correctamente'
+            ], 200);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar el tweet: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

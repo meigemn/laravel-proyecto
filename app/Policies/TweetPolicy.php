@@ -9,58 +9,67 @@ use Illuminate\Auth\Access\Response;
 class TweetPolicy
 {
     /**
-     * Determine whether the user can view any models.
+     * Determina si el usuario puede ver cualquier modelo (lista de tweets).
+     * Actualmente bloqueado para todos los usuarios.
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return false; // Nadie puede ver la lista de tweets
     }
 
     /**
-     * Determine whether the user can view the model.
+     * Determina si el usuario puede ver un tweet específico.
+     * Actualmente bloqueado para todos los usuarios.
      */
     public function view(User $user, Tweet $tweet): bool
     {
-        return false;
+        return false; // Nadie puede ver tweets individuales
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determina si el usuario puede crear nuevos tweets.
+     * Actualmente bloqueado para todos los usuarios.
      */
     public function create(User $user): bool
     {
-        return false;
+        return false; // Nadie puede crear tweets
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determina si el usuario puede actualizar un tweet.
+     * Solo permite al dueño del tweet editarlo.
      */
     public function update(User $user, Tweet $tweet)
     {
+        // Compara el ID del usuario con el ID del creador del tweet
         return $user->id === $tweet->user_id;
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Determina si el usuario puede eliminar un tweet.
+     * Solo permite al dueño del tweet borrarlo.
      */
     public function delete(User $user, Tweet $tweet)
     {
+        // Compara el ID del usuario con el ID del creador del tweet
         return $user->id === $tweet->user_id;
     }
 
     /**
-     * Determine whether the user can restore the model.
+     * Determina si el usuario puede restaurar tweets eliminados (soft delete).
+     * Actualmente bloqueado para todos los usuarios.
      */
     public function restore(User $user, Tweet $tweet): bool
     {
-        return false;
+        return false; // Nadie puede restaurar tweets eliminados
     }
 
     /**
-     * Determine whether the user can permanently delete the model.
+     * Determina si el usuario puede borrar permanentemente un tweet.
+     * Actualmente bloqueado para todos los usuarios.
      */
     public function forceDelete(User $user, Tweet $tweet): bool
     {
-        return false;
+        return false; // Nadie puede borrar tweets permanentemente
     }
 }

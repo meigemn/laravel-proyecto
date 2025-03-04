@@ -75,13 +75,33 @@
             </div>
 
             <!-- Icono de siguiendo con etiqueta emergente -->
-            <div class="group relative px-4 cursor-pointer">
-                <div class="flex h-10 w-10 items-center justify-center rounded-full hover:text-blue-500">
+            <div x-data="{ showFollowing: false }" class="group relative px-4 cursor-pointer">
+                <div @click="showFollowing = !showFollowing" class="flex h-10 w-10 items-center justify-center rounded-full hover:text-blue-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
                         <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="currentColor" d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13M16 3.13C16.8604 3.3503 17.623 3.8507 18.1676 4.55231C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89317 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z"></path>
                     </svg>
                 </div>
-                <span class="absolute -top-8 left-[50%] -translate-x-[50%] z-20 origin-left scale-0 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium shadow-md transition-all duration-300 ease-in-out group-hover:scale-100">
+                
+                <!-- Lista de seguidos -->
+                <div x-show="showFollowing" 
+                     @click.away="showFollowing = false"
+                     class="absolute left-4 mt-2 w-64 bg-[#192734] rounded-lg shadow-xl z-50 max-h-80 overflow-y-auto">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold mb-2 border-b border-gray-700 pb-2">Personas que sigues</h3>
+                        @forelse(Auth::user()->follows as $user)
+                            <a href="{{ route('profile', $user) }}" class="flex items-center space-x-3 p-2 hover:bg-[#22303c] rounded-lg transition-colors">
+                                <img src="{{ $user->user_photo ? asset('storage/' . $user->user_photo) : asset('images/default-profile.png') }}" 
+                                     class="w-8 h-8 rounded-full object-cover">
+                                <span class="font-medium">{{ $user->name }}</span>
+                            </a>
+                        @empty
+                            <p class="text-gray-500 text-sm">No sigues a nadie aún</p>
+                        @endforelse
+                    </div>
+                </div>
+        
+                <!-- Etiqueta emergente original (tooltip) -->
+                <span class="absolute -top-8 left-[50%] -translate-x-[50%] z-20 origin-left scale-0 ...">
                     Siguiendo
                 </span>
             </div>

@@ -28,7 +28,7 @@ class User extends Authenticatable
     protected $appends = ['followers_count', 'following_count'];
     public function tweets()
     {
-        return $this->hasMany(Tweet::class, 'user_id');
+        return $this->hasMany(Tweet::class);
     }
 
     /**
@@ -83,6 +83,16 @@ public function getFollowersCountAttribute()
 public function getFollowingCountAttribute()
 {
     return $this->following()->count();
+}
+// En app/Models/User.php
+public function follows()
+{
+    return $this->belongsToMany(
+        User::class,
+        'follows', // Nombre de tu tabla
+        'user_following', // ID del usuario que sigue (el autenticado)
+        'user_followed' // ID del usuario seguido
+    )->withTimestamps();
 }
 
 

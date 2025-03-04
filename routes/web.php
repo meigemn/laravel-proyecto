@@ -51,4 +51,7 @@ Route::post('/profile/update', [ProfileController::class, 'update'])->name('prof
 Route::post('/tweets', [TweetController::class, 'store'])->name('tweets.store');
 
 //Modificar y borrar tweet
-Route::resource('tweets', TweetController::class)->only(['update', 'destroy']);
+Route::put('/tweets/{tweet}', [TweetController::class, 'update'])->name('tweets.update');
+Route::delete('/tweets/{tweet}', [TweetController::class, 'destroy'])
+    ->name('tweets.destroy')
+    ->middleware('auth');
