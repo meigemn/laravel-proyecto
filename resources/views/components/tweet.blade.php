@@ -7,19 +7,19 @@ hover:translate-x-3 hover:-translate-y-3 hover:rotate-1">
     <div class="flex items-start space-x-3">
         <!-- Avatar -->
         @if ($tweet->user && $tweet->user->user_photo)
-            <img src="{{ $tweet->user->user_photo }}" alt="Avatar" class="w-12 h-12 rounded-full object-cover">
-        @else
-            <!-- Avatar por defecto -->
-            <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-            </div>
-        @endif
+        <img src="{{ asset('storage/' . $tweet->user->user_photo) }}" 
+             alt="Avatar" 
+             class="w-12 h-12 rounded-full object-cover">
+    @else
+        <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
+            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+        </div>
+    @endif
 
         <!-- Contenido principal -->
-        <div class="flex-1">
+        <div class="flex-1 ">
             <!-- Información del usuario -->
             <div class="flex items-center space-x-2">
                 @if ($tweet->user)
@@ -32,7 +32,7 @@ hover:translate-x-3 hover:-translate-y-3 hover:rotate-1">
             </div>
 
             <!-- Contenido del Tweet -->
-            <p class="text-black mt-2">
+            <p class="text-black mt-2 text-white">
                 {{ $tweet->content }}
             </p>
 

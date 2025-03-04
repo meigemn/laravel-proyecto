@@ -23,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'user_photo'
+        'user_photo' 
     ];
     protected $appends = ['followers_count', 'following_count'];
     public function tweets()

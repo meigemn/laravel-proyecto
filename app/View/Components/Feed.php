@@ -14,18 +14,13 @@ class Feed extends Component
     public $tweets;
 
     public function __construct()
-{
+    {
 
-$this->tweets = Tweet::with(['user', 'likes'])
-->withCount('likes')
-->latest()
-->paginate(10);
-
-    
-}
-
-
-
+        $this->tweets = Tweet::with(['user', 'likes'])
+            ->withCount('likes')
+            ->latest()
+            ->paginate(10);
+    }
     public function render(): View|Closure|string
     {
         return view('components.feed', [
