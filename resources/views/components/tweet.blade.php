@@ -32,7 +32,7 @@ hover:translate-x-3 hover:-translate-y-3 hover:rotate-1">
             </div>
 
             <!-- Contenido del Tweet -->
-            <p class="text-black mt-2 text-white">
+            <p class="text-white mt-2 ">
                 {{ $tweet->content }}
             </p>
 

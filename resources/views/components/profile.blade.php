@@ -40,6 +40,10 @@
                                     <span class="font-semibold">{{ $user->followers_count }}</span>
                                     <span class="ml-1 text-gray-400">Seguidores</span>
                                 </div>
+                                <div class="flex items-center">
+                                    <span class="font-semibold">{{ $user->following_count }}</span>
+                                    <span class="ml-1 text-gray-400">Seguiendo</span>
+                                </div>
                             </div>
                         </div>
                     </div>
