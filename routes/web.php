@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TweetController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -43,3 +44,7 @@ Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+
+// Ruta para guardar tweets
+Route::post('/tweets', [TweetController::class, 'store'])->name('tweets.store');

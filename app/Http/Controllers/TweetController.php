@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tweet;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
 class TweetController extends Controller
 {
@@ -17,10 +16,11 @@ class TweetController extends Controller
         ]);
 
         // Crear tweet
-        Auth::user()->tweets->create([
+        Tweet::create([
+            'user_id' => Auth::id(),
             'content' => $request->content,
         ]);
 
-        return redirect()->back()->with('success', 'Tweet publicado!');
+        return back()->with('success');
     }
 }
