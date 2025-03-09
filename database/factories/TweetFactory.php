@@ -22,7 +22,7 @@ class TweetFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'tweet_id' => \App\Models\Tweet::inRandomOrder()->first()->id
+                'tweet_id' => Tweet::inRandomOrder()->first()->id
             ];
         });
     }

@@ -6,7 +6,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 Auth::routes(['register' => true]); // Habilitar rutas de registro
-Auth::routes(); // Esto crea automáticamente la ruta 'logout'
+Auth::routes(); // Crea automáticamente la ruta 'logout'
 
 // routes/web.php
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -55,3 +55,6 @@ Route::put('/tweets/{tweet}', [TweetController::class, 'update'])->name('tweets.
 Route::delete('/tweets/{tweet}', [TweetController::class, 'destroy'])
     ->name('tweets.destroy')
     ->middleware('auth');
+
+//Perfil de otros usuarios
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');

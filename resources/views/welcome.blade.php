@@ -23,6 +23,7 @@
             <form class="mt-8 space-y-6" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="rounded-md shadow-sm space-y-4">
+                    {{-- email --}}
                     <div>
                         <label for="email" class="sr-only">{{ __('Email Address') }}</label>
                         <input id="email" name="email" type="email" autocomplete="email" required
@@ -33,7 +34,7 @@
                             <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
                         @enderror
                     </div>
-
+                    {{--contraseña --}}
                     <div>
                         <label for="password" class="sr-only">{{ __('Password') }}</label>
                         <input id="password" name="password" type="password" autocomplete="current-password" required
@@ -72,7 +73,7 @@
                     <span class="text-black font-bold">Sign in</span>
                 </button>
             </form>
-
+            {{-- crear cuenta --}}
             <div class="mt-6">
                 <p class="text-center text-sm text-gray-400">
                     Don't have an account?
